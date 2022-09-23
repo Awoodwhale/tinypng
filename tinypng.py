@@ -1,5 +1,6 @@
-import json
 import os
+import sys
+import json
 import random
 import requests
 import time
@@ -180,6 +181,9 @@ def list_equally_split(list_data: list, num: int) -> list:
 def thread_shrink(file_path: str, threads_cnt=8) -> None:
     start_time = time.time()
     img_list = list_images(file_path)
+    if not img_list:
+        log.error("Please Input Correct Path!")
+        return
     if len(img_list) == 1:
         # Only one image
         shrink_image(img_list[0])
@@ -208,4 +212,6 @@ def thread_shrink(file_path: str, threads_cnt=8) -> None:
 
 
 if __name__ == '__main__':
-    thread_shrink("D:\\图片\\background", 8)
+    # thread_shrink("D:\\图片\\background", 8)
+    thread_shrink(sys.argv[1:][0], threads_cnt=8)
+        
